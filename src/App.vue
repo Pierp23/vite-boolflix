@@ -60,7 +60,10 @@ export default {
 
   <MainComponent />
 
-  <FooterComponent />
+  <!-- <FooterComponent /> -->
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@use './assets/scss/reset.scss';
+@use './assets/scss/main.scss'
+</style>

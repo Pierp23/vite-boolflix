@@ -41,71 +41,152 @@ export default {
 
 <template>
     <main>
-        <h2>FILM</h2>
-        <ul>
-            <li v-for="(movie, index) in  store.movies " :key="index">
-                Copertina:
-                <div>
-                    <img class="poster" :src="` https://image.tmdb.org/t/p/w342/${movie.poster_path} `" alt="">
+        <div class="container">
+            <h2>SERIE TV</h2>
+            <div v-if="store.movies == ''">
+                NESSUNA FILM SELEZIONATO
+            </div>
+            <div class="row">
+                <div class="my-col" v-for="(movie, index) in  store.movies " :key="index">
+                    <div class="cards">
+                        <div class="card">
+                            <img :src="` https://image.tmdb.org/t/p/w342/${movie.poster_path} `" alt="">
+                            <div class="infos">
+                                <p>
+                                    Titolo: {{ movie.title }}
+                                </p>
+                                <p>
+                                    Titolo Originale: {{ movie.original_title }}
+                                </p>
+                                <p>
+                                    Lingua: <img class="flag" :src="getFlag(movie.original_language)"
+                                        :alt="movie.original_language">
+                                </p>
+                                <div>
+                                    Voto: {{ getVote(movie.vote_average) }}
+                                    <template v-if="getVote(movie.vote_average) > 0">
+                                        <span v-for="(star) in 5" :key="star">
+                                            <i class="stars"
+                                                :class="star <= getVote(movie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                        </span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                Titolo: {{ movie.title }}
-                <br>
-                Titolo Originale: {{ movie.original_title }}
-                <br>
-                Lingua:
-                <img class="flag" :src="getFlag(movie.original_language)" alt="">
-                <br>
-                Voto: {{ getVote(movie.vote_average) }}
-                <template v-if="getVote(movie.vote_average) > 0">
-                    <span v-for="(star) in 5" :key="star">
-                        <i :class="star <= getVote(movie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
-                    </span>
-                </template>
 
+            </div>
+        </div>
 
-            </li>
-        </ul>
-        <h2>SERIE TV</h2>
-        <ul>
-            <li v-for="( serie, index ) in  store.series " :key="index">
-                Copertina:
-                <div>
-                    <img class="poster" :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
+        <div class="container">
+            <h2>
+                SERIE TV
+            </h2>
+            <div v-if="store.series == ''">
+                NESSUNA SERIE
+            </div>
+            <div class="row">
+                <div class="my-col" v-for="(serie, index) in  store.series " :key="index">
+                    <div class="cards">
+                        <div class="card">
+                            <img :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
+                            <div class="infos">
+                                <p>
+                                    Titolo: {{ serie.name }}
+                                </p>
+                                <p>
+                                    Titolo Originale: {{ serie.original_name }}
+                                </p>
+                                <p>
+                                    Lingua: <img class="flag" :src="getFlag(serie.original_language)"
+                                        :alt="serie.original_language">
+                                </p>
+                                <div>
+                                    Voto: {{ getVote(serie.vote_average) }}
+                                    <template v-if="getVote(serie.vote_average) > 0">
+                                        <span v-for="(star) in 5" :key="star">
+                                            <i class="stars"
+                                                :class="star <= getVote(serie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                        </span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                Titolo: {{ serie.name }}
-                <br>
-                Titolo Originale: {{ serie.original_name }}
-                <br>
-                Lingua: <img class="flag" :src="getFlag(serie.original_language)" :alt="serie.original_language">
-                <br>
-                Voto: {{ getVote(serie.vote_average) }}
-                <template v-if="getVote(serie.vote_average) > 0">
-                    <span v-for="(star) in 5" :key="star">
-                        <i :class="star <= getVote(serie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
-                    </span>
-                </template>
-
-            </li>
-        </ul>
+            </div>
+        </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
-.poster {
-    width: 150px;
-    height: 150px;
+main {
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    min-height: calc(100vh - 60px);
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px 0;
+
+        & h2 {
+            margin: 20px 0;
+        }
+    }
+
+    .container .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .my-col {
+        width: calc(100% / 5 - 20px);
+        margin: 10px;
+    }
+
+    .card {
+        position: relative;
+        display: block;
+        height: 300px;
+    }
+
+    .infos {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        &>* {
+            padding: 2px 5px;
+        }
+
+        & .flag {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+        }
+
+    }
+
+    .card:hover .infos {
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-}
 
-.flag {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
+    .stars {
+        color: yellow;
+    }
 }
 </style>
