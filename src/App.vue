@@ -1,7 +1,9 @@
 <script>
-import HeaderComponent from 'components/HeaderComponent.vue'
-import MainComponent from 'components/MainComponent.vue'
-import FooterComponent from 'components/FooterComponent.vue'
+import HeaderComponent from './components/HeaderComponent.vue'
+import MainComponent from './components/MainComponent.vue'
+import FooterComponent from './components/FooterComponent.vue'
+
+import Axios from 'axios'
 
 export default {
   name: "App",
