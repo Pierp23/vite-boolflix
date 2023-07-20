@@ -1,8 +1,11 @@
 <script>
+import { store } from '../store'
+
 export default {
     name: "HeaderComponent",
     data() {
         return {
+            store
         }
     },
     props: {},
@@ -14,7 +17,8 @@ export default {
 
 <template>
     <header>
-        HEADERR
+        <input v-model="store.searchText" type="text" placeholder="Cerca un film">
+        <button @click="$emit('searchMovie')">Cerca</button>
     </header>
 </template>
 
