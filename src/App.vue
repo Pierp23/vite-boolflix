@@ -32,15 +32,31 @@ export default {
         .then(result => {
           console.log(result.data)
           this.store.movies = result.data.results
+          this.store.searchText = ""
+        })
+    },
+    searchSeries() {
+      console.log(this.store.searchText)
+      axios.get('https://api.themoviedb.org/3/search/tv', {
+        params: {
+          api_key: '5681814f5f4aea923eacb9d58dc889ea',
+          query: this.store.searchText
+        }
+      })
+        .then(result => {
+          console.log(result.data)
+          this.store.series = result.data.results
+          this.store.searchText = ""
         })
     }
+
 
   }
 }
 </script>
 
 <template>
-  <HeaderComponent @searchMovie="searchMovie()" />
+  <HeaderComponent @searchMovie="searchMovie(), searchSeries()" />
 
   <MainComponent />
 
