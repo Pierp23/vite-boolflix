@@ -17,6 +17,9 @@ export default {
             else if (lang == 'it') {
                 return 'https://flagicons.lipis.dev/flags/4x3/it.svg'
             }
+            else if (lang == 'es') {
+                return 'https://flagicons.lipis.dev/flags/4x3/es.svg'
+            }
             else if (lang == 'ja') {
                 return 'https://flagicons.lipis.dev/flags/4x3/jp.svg'
             }
@@ -25,6 +28,18 @@ export default {
             }
             else if (lang == 'de') {
                 return 'https://flagicons.lipis.dev/flags/4x3/de.svg'
+            }
+            else if (lang == 'zh') {
+                return 'https://flagicons.lipis.dev/flags/4x3/cn.svg'
+            }
+            else if (lang == 'hi') {
+                return 'https://flagicons.lipis.dev/flags/4x3/in.svg'
+            }
+            else if (lang == 'pt') {
+                return 'https://flagicons.lipis.dev/flags/4x3/pt.svg'
+            }
+            else if (lang == 'ko') {
+                return 'https://flagicons.lipis.dev/flags/4x3/kr.svg'
             }
             else {
                 return 'https://flagicons.lipis.dev/flags/4x3/aq.svg'
@@ -40,7 +55,7 @@ export default {
 <template>
     <main>
         <div class="container">
-            <section class="discover" v-if="store.movies == ''">
+            <section class="discover" v-if="store.movies == 0 && store.series == 0">
                 <div>
                     <h2>I FILM POPOLARI</h2>
                     <div class="row">
@@ -126,7 +141,10 @@ export default {
             <section class="search-section" v-else>
                 <section class="movies">
                     <h2>FILM</h2>
-                    <div class="row">
+                    <div v-if="store.movies == 0">
+                        NESSUN FILM TROVATO
+                    </div>
+                    <div v-else class="row">
                         <div class="my-col" v-for="(movie, index) in  store.movies " :key="index">
                             <div class="cards">
                                 <div class="card">
@@ -169,7 +187,10 @@ export default {
                     <h2>
                         SERIE TV
                     </h2>
-                    <div class="row">
+                    <div v-if="store.series == 0">
+                        NESSUNA SERIE TROVATA
+                    </div>
+                    <div v-else class="row">
                         <div class="my-col" v-for="(serie, index) in  store.series " :key="index">
                             <div class="cards">
                                 <div class="card">
@@ -248,7 +269,7 @@ main {
     .card {
         position: relative;
         display: block;
-        height: 300px;
+        height: 350px;
     }
 
     .infos {
@@ -274,12 +295,14 @@ main {
     .card:hover .infos {
         display: inline-block;
         background-color: rgba(0, 0, 0, 0.9);
+        cursor: pointer;
     }
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: bottom;
     }
 
     .stars {

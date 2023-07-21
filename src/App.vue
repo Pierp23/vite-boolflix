@@ -22,7 +22,6 @@ export default {
   props: {},
   methods: {
     searchMovie() {
-      console.log(this.store.searchText)
       axios.get('https://api.themoviedb.org/3/search/movie', {
         params: {
           api_key: '5681814f5f4aea923eacb9d58dc889ea',
@@ -30,13 +29,11 @@ export default {
         }
       })
         .then(response => {
-          console.log(response.data)
           this.store.movies = response.data.results
           this.store.searchText = ""
         })
     },
     searchSeries() {
-      console.log(this.store.searchText)
       axios.get('https://api.themoviedb.org/3/search/tv', {
         params: {
           api_key: '5681814f5f4aea923eacb9d58dc889ea',
@@ -44,7 +41,6 @@ export default {
         }
       })
         .then(response => {
-          console.log(response.data)
           this.store.series = response.data.results
           this.store.searchText = ""
         })
@@ -73,8 +69,8 @@ export default {
 
   },
   created() {
-    this.discoverMovies(),
-      this.discoverSeries()
+    this.discoverMovies();
+    this.discoverSeries()
   }
 }
 </script>
