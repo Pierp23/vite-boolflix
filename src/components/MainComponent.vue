@@ -23,6 +23,9 @@ export default {
             else if (lang == 'fr') {
                 return 'https://flagicons.lipis.dev/flags/4x3/fr.svg'
             }
+            else if (lang == 'de') {
+                return 'https://flagicons.lipis.dev/flags/4x3/de.svg'
+            }
             else {
                 return 'https://flagicons.lipis.dev/flags/4x3/aq.svg'
             }
@@ -42,7 +45,7 @@ export default {
 <template>
     <main>
         <div class="container">
-            <h2>SERIE TV</h2>
+            <h2>FILM</h2>
             <div v-if="store.movies == ''">
                 NESSUNA FILM SELEZIONATO
             </div>
@@ -50,7 +53,10 @@ export default {
                 <div class="my-col" v-for="(movie, index) in  store.movies " :key="index">
                     <div class="cards">
                         <div class="card">
-                            <img :src="` https://image.tmdb.org/t/p/w342/${movie.poster_path} `" alt="">
+                            <img v-if="movie.poster_path == null"
+                                :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                alt="">
+                            <img v-else :src="` https://image.tmdb.org/t/p/w342/${movie.poster_path} `" alt="">
                             <div class="infos">
                                 <p>
                                     Titolo: {{ movie.title }}
@@ -90,7 +96,10 @@ export default {
                 <div class="my-col" v-for="(serie, index) in  store.series " :key="index">
                     <div class="cards">
                         <div class="card">
-                            <img :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
+                            <img v-if="serie.poster_path == null"
+                                :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                alt="">
+                            <img v-else :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
                             <div class="infos">
                                 <p>
                                     Titolo: {{ serie.name }}
@@ -129,7 +138,7 @@ main {
     min-height: calc(100vh - 60px);
 
     .container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
         padding: 20px 0;
 
