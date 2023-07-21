@@ -56,7 +56,7 @@ export default {
                             <img v-if="movie.poster_path == null"
                                 :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
                                 alt="">
-                            <img v-else :src="` https://image.tmdb.org/t/p/w342/${movie.poster_path} `" alt="">
+                            <img v-else :src="` https://image.tmdb.org/t/p/w342${movie.poster_path} `" alt="">
                             <div class="infos">
                                 <p>
                                     Titolo: {{ movie.title }}
@@ -77,6 +77,9 @@ export default {
                                         </span>
                                     </template>
                                 </div>
+                                <p>
+                                    Trama: {{ movie.overview }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -120,6 +123,9 @@ export default {
                                         </span>
                                     </template>
                                 </div>
+                                <p>
+                                    Trama: {{ serie.overview }}
+                                </p>
                             </div>
                         </div>
                     </div>
