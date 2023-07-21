@@ -29,9 +29,9 @@ export default {
           query: this.store.searchText
         }
       })
-        .then(result => {
-          console.log(result.data)
-          this.store.movies = result.data.results
+        .then(response => {
+          console.log(response.data)
+          this.store.movies = response.data.results
           this.store.searchText = ""
         })
     },
@@ -43,14 +43,38 @@ export default {
           query: this.store.searchText
         }
       })
-        .then(result => {
-          console.log(result.data)
-          this.store.series = result.data.results
+        .then(response => {
+          console.log(response.data)
+          this.store.series = response.data.results
           this.store.searchText = ""
+        })
+    },
+    discoverMovies() {
+      axios.get('https://api.themoviedb.org/3/movie/popular', {
+        params: {
+          api_key: '5681814f5f4aea923eacb9d58dc889ea'
+        }
+      })
+        .then(response => {
+          this.store.discoverMovies = response.data.results
+        })
+    },
+    discoverSeries() {
+      axios.get('https://api.themoviedb.org/3/tv/popular', {
+        params: {
+          api_key: '5681814f5f4aea923eacb9d58dc889ea'
+        }
+      })
+        .then(response => {
+          this.store.discoverSeries = response.data.results
         })
     }
 
 
+  },
+  created() {
+    this.discoverMovies(),
+      this.discoverSeries()
   }
 }
 </script>

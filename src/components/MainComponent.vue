@@ -40,95 +40,176 @@ export default {
 <template>
     <main>
         <div class="container">
-            <section class="movies">
-                <h2>FILM</h2>
-                <div v-if="store.movies == ''">
-                    NESSUNA FILM SELEZIONATO
-                </div>
-                <div class="row">
-                    <div class="my-col" v-for="(movie, index) in  store.movies " :key="index">
-                        <div class="cards">
-                            <div class="card">
-                                <img v-if="movie.poster_path == null"
-                                    :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
-                                    alt="">
-                                <img v-else :src="` https://image.tmdb.org/t/p/w342${movie.poster_path} `" alt="">
-                                <div class="infos">
-                                    <p>
-                                        Titolo: {{ movie.title }}
-                                    </p>
-                                    <p>
-                                        Titolo Originale: {{ movie.original_title }}
-                                    </p>
-                                    <p>
-                                        Lingua: <img class="flag" :src="getFlag(movie.original_language)"
-                                            :alt="movie.original_language">
-                                    </p>
-                                    <div>
-                                        Voto: {{ getVote(movie.vote_average) }}
-                                        <template v-if="getVote(movie.vote_average) > 0">
-                                            <span v-for="(star) in 5" :key="star">
-                                                <i class="stars"
-                                                    :class="star <= getVote(movie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
-                                            </span>
-                                        </template>
+            <section class="discover" v-if="store.movies == ''">
+                <div>
+                    <h2>I FILM POPOLARI</h2>
+                    <div class="row">
+                        <div class="my-col" v-for="(discover, index) in  store.discoverMovies" :key="index">
+                            <div class="cards">
+                                <div class="card">
+                                    <img v-if="discover.poster_path == null"
+                                        :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                        alt="">
+                                    <img v-else :src="` https://image.tmdb.org/t/p/w342${discover.poster_path} `" alt="">
+                                    <div class="infos">
+                                        <p>
+                                            Titolo: {{ discover.name }}
+                                        </p>
+                                        <p>
+                                            Titolo Originale: {{ discover.original_name }}
+                                        </p>
+                                        <p>
+                                            Lingua: <img class="flag" :src="getFlag(discover.original_language)"
+                                                :alt="discover.original_language">
+                                        </p>
+                                        <div>
+                                            Voto: {{ getVote(discover.vote_average) }}
+                                            <template v-if="getVote(discover.vote_average) > 0">
+                                                <span v-for="(star) in 5" :key="star">
+                                                    <i class="stars"
+                                                        :class="star <= getVote(discover.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                                </span>
+                                            </template>
+                                        </div>
+                                        <p>
+                                            Trama: {{ discover.overview }}
+                                        </p>
                                     </div>
-                                    <p>
-                                        Trama: {{ movie.overview }}
-                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </section>
-            <hr>
-            <section class="series">
-                <h2>
-                    SERIE TV
-                </h2>
-                <div v-if="store.series == ''">
-                    NESSUNA SERIE
-                </div>
-                <div class="row">
-                    <div class="my-col" v-for="(serie, index) in  store.series " :key="index">
-                        <div class="cards">
-                            <div class="card">
-                                <img v-if="serie.poster_path == null"
-                                    :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
-                                    alt="">
-                                <img v-else :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
-                                <div class="infos">
-                                    <p>
-                                        Titolo: {{ serie.name }}
-                                    </p>
-                                    <p>
-                                        Titolo Originale: {{ serie.original_name }}
-                                    </p>
-                                    <p>
-                                        Lingua: <img class="flag" :src="getFlag(serie.original_language)"
-                                            :alt="serie.original_language">
-                                    </p>
-                                    <div>
-                                        Voto: {{ getVote(serie.vote_average) }}
-                                        <template v-if="getVote(serie.vote_average) > 0">
-                                            <span v-for="(star) in 5" :key="star">
-                                                <i class="stars"
-                                                    :class="star <= getVote(serie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
-                                            </span>
-                                        </template>
+
+                <div>
+                    <h2>LE SERIE POPOLARI</h2>
+                    <div class="row">
+                        <div class="my-col" v-for="(discover, index) in  store.discoverSeries" :key="index">
+                            <div class="cards">
+                                <div class="card">
+                                    <img v-if="discover.poster_path == null"
+                                        :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                        alt="">
+                                    <img v-else :src="` https://image.tmdb.org/t/p/w342/${discover.poster_path} `" alt="">
+                                    <div class="infos">
+                                        <p>
+                                            Titolo: {{ discover.name }}
+                                        </p>
+                                        <p>
+                                            Titolo Originale: {{ discover.original_name }}
+                                        </p>
+                                        <p>
+                                            Lingua: <img class="flag" :src="getFlag(discover.original_language)"
+                                                :alt="discover.original_language">
+                                        </p>
+                                        <div>
+                                            Voto: {{ getVote(discover.vote_average) }}
+                                            <template v-if="getVote(discover.vote_average) > 0">
+                                                <span v-for="(star) in 5" :key="star">
+                                                    <i class="stars"
+                                                        :class="star <= getVote(discover.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                                </span>
+                                            </template>
+                                        </div>
+                                        <p>
+                                            Trama: {{ discover.overview }}
+                                        </p>
                                     </div>
-                                    <p>
-                                        Trama: {{ serie.overview }}
-                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </section>
+            <section class="search-section" v-else>
+                <section class="movies">
+                    <h2>FILM</h2>
+                    <div class="row">
+                        <div class="my-col" v-for="(movie, index) in  store.movies " :key="index">
+                            <div class="cards">
+                                <div class="card">
+                                    <img v-if="movie.poster_path == null"
+                                        :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                        alt="">
+                                    <img v-else :src="` https://image.tmdb.org/t/p/w342${movie.poster_path} `" alt="">
+                                    <div class="infos">
+                                        <p>
+                                            Titolo: {{ movie.title }}
+                                        </p>
+                                        <p>
+                                            Titolo Originale: {{ movie.original_title }}
+                                        </p>
+                                        <p>
+                                            Lingua: <img class="flag" :src="getFlag(movie.original_language)"
+                                                :alt="movie.original_language">
+                                        </p>
+                                        <div>
+                                            Voto: {{ getVote(movie.vote_average) }}
+                                            <template v-if="getVote(movie.vote_average) > 0">
+                                                <span v-for="(star) in 5" :key="star">
+                                                    <i class="stars"
+                                                        :class="star <= getVote(movie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                                </span>
+                                            </template>
+                                        </div>
+                                        <p>
+                                            Trama: {{ movie.overview }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <hr>
+                <section class="series">
+                    <h2>
+                        SERIE TV
+                    </h2>
+                    <div class="row">
+                        <div class="my-col" v-for="(serie, index) in  store.series " :key="index">
+                            <div class="cards">
+                                <div class="card">
+                                    <img v-if="serie.poster_path == null"
+                                        :src="'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'"
+                                        alt="">
+                                    <img v-else :src="` https://image.tmdb.org/t/p/w342/${serie.poster_path} `" alt="">
+                                    <div class="infos">
+                                        <p>
+                                            Titolo: {{ serie.name }}
+                                        </p>
+                                        <p>
+                                            Titolo Originale: {{ serie.original_name }}
+                                        </p>
+                                        <p>
+                                            Lingua: <img class="flag" :src="getFlag(serie.original_language)"
+                                                :alt="serie.original_language">
+                                        </p>
+                                        <div>
+                                            Voto: {{ getVote(serie.vote_average) }}
+                                            <template v-if="getVote(serie.vote_average) > 0">
+                                                <span v-for="(star) in 5" :key="star">
+                                                    <i class="stars"
+                                                        :class="star <= getVote(serie.vote_average) ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                                </span>
+                                            </template>
+                                        </div>
+                                        <p>
+                                            Trama: {{ serie.overview }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <hr>
+            </section>
+
         </div>
     </main>
 </template>
@@ -203,6 +284,10 @@ main {
 
     .stars {
         color: yellow;
+    }
+
+    .discover>div {
+        margin-bottom: 80px;
     }
 }
 </style>
